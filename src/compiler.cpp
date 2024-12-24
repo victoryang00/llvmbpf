@@ -32,6 +32,7 @@ using namespace llvm;
 using namespace llvm::orc;
 using namespace bpftime;
 
+const int EBPF_STACK_SIZE = 512; // Standard eBPF stack size
 const int STACK_SIZE = (EBPF_STACK_SIZE + 7) / 8;
 const int CALL_STACK_SIZE = 64;
 

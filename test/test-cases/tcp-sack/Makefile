@@ -7,4 +7,4 @@ $(PROG).bin: $(PROG).o
 	objcopy -I elf64-little -O binary $^ $@
 
 $(PROG).o: $(PROG).c
-	clang-3.7 -O2 -target bpf -c $^ -o $@
+	clang -O2 -I/usr/include/x86_64-linux-gnu/ -target bpf -c $^ -o $@

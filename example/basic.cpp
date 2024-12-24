@@ -10,7 +10,7 @@
 #include <inttypes.h>
 #include <cassert>
 #include "llvmbpf.hpp"
-
+#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
 using namespace bpftime;
 
 uint64_t ffi_print_func(uint64_t a, uint64_t _b, uint64_t _c, uint64_t _d,

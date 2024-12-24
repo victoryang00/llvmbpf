@@ -37,6 +37,7 @@ bpftime_add_library(llvmbpf_vm
 
 set_target_properties(llvmbpf_vm PROPERTIES ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/../")
 
+find_package(spdlog REQUIRED CONFIG)
 find_package(LLVM REQUIRED CONFIG)
 
 if(${LLVM_PACKAGE_VERSION} VERSION_LESS 15)
@@ -55,25 +56,30 @@ else()
         mcjit
         Support
         nativecodegen
+        NVPTX
+        NVPTXCodeGen
+        NVPTXDesc
+        NVPTXInfo
+        MC
     )
 endif()
 
 include(FetchContent)
 
-if(NOT DEFINED SPDLOG_INCLUDE)
-    message(INFO " Adding spdlog seperately..")
+# if(NOT DEFINED SPDLOG_INCLUDE)
+#     message(INFO " Adding spdlog seperately..")
 
-    # spdlog
-    # Fetch spdlog
-    FetchContent_Declare(
-        spdlog
-        GIT_REPOSITORY https://github.com/gabime/spdlog.git
-        GIT_TAG v1.14.1 # Specify the version you want to use
-    )
+#     # spdlog
+#     # Fetch spdlog
+#     FetchContent_Declare(
+#         spdlog
+#         GIT_REPOSITORY https://github.com/gabime/spdlog.git
+#         GIT_TAG v1.14.1 # Specify the version you want to use
+#     )
 
-    # Make the spdlog target available
-    FetchContent_MakeAvailable(spdlog)
-endif()
+#     # Make the spdlog target available
+#     FetchContent_MakeAvailable(spdlog)
+# endif()
 
 # if BPFTIME_LLVM_JIT is set, then it's built in the bpftime project.
 # If not, it's built as a standalone library.
