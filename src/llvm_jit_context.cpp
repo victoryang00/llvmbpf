@@ -339,7 +339,8 @@ std::vector<uint8_t> llvm_bpf_jit_context::do_aot_compile(
 				    CodeGenFileType::ObjectFile)) {
 #elif LLVM_VERSION_MAJOR >= 10
 			if (targetMachine->addPassesToEmitFile(
-				    pass, *BOS, nullptr, CGFT_AssemblyFile)) {
+				    pass, *BOS, nullptr,
+				    llvm::CGFT_AssemblyFile)) {
 #elif LLVM_VERSION_MAJOR >= 8
 			if (targetMachine->addPassesToEmitFile(
 				    pass, *BOS, nullptr,
@@ -349,10 +350,10 @@ std::vector<uint8_t> llvm_bpf_jit_context::do_aot_compile(
 				    pass, *BOS, TargetMachine::CGFT_ObjectFile,
 				    true)) {
 #endif
-				// SPDLOG_ERROR(
-				// 	"Unable to emit module for target machine");
-				// throw std::runtime_error(
-				// 	"Unable to emit module for target machine");
+				SPDLOG_ERROR(
+					"Unable to emit module for target machine");
+				throw std::runtime_error(
+					"Unable to emit module for target machine");
 			}
 
 			pass.run(module);

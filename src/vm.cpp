@@ -109,10 +109,15 @@ std::optional<bpftime::precompiled_ebpf_function> llvmbpf_vm::compile() noexcept
 
 		// Create target machine
 		llvm::TargetOptions opt;
+		opt.MCOptions.AsmVerbose = true; // 启用详细的 PTX 输出
 		auto RM = llvm::Optional<llvm::Reloc::Model>();
 		std::unique_ptr<llvm::TargetMachine> target_machine(
-			target->createTargetMachine(target_triple, "sm_70", "",
-						    opt, RM));
+			target->createTargetMachine(
+				target_triple,
+				"sm_70", // 指定 CUDA 计算能力
+				"+ptx64", // 启用 64 位 PTX
+				opt,
+				RM));
 
 		// Set target machine in JIT context
 		jit_ctx->setTargetMachine(std::move(target_machine));
