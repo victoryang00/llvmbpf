@@ -5,7 +5,6 @@
 #include "ebpf_inst.h"
 #include "llvm_jit_context.hpp"
 #include "llvm/Support/TargetSelect.h"
-#include "llvm/Support/Host.h"
 #include "llvm/Target/TargetMachine.h"
 #include "llvm/MC/TargetRegistry.h"
 
@@ -110,7 +109,7 @@ std::optional<bpftime::precompiled_ebpf_function> llvmbpf_vm::compile() noexcept
 		// Create target machine
 		llvm::TargetOptions opt;
 		opt.MCOptions.AsmVerbose = true; // 启用详细的 PTX 输出
-		auto RM = llvm::Optional<llvm::Reloc::Model>();
+		auto RM = llvm::Reloc::Model();
 		std::unique_ptr<llvm::TargetMachine> target_machine(
 			target->createTargetMachine(
 				target_triple,
